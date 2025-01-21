@@ -1,5 +1,7 @@
 package com.agmgomes.productcatalogmanagement.application.product.impl;
 
+import org.springframework.stereotype.Component;
+
 import com.agmgomes.productcatalogmanagement.application.product.usecases.AssociateProductWithCategoryUseCase;
 import com.agmgomes.productcatalogmanagement.domain.category.Category;
 import com.agmgomes.productcatalogmanagement.domain.category.exception.CategoryNotFoundException;
@@ -12,6 +14,7 @@ import com.agmgomes.productcatalogmanagement.ports.out.ProductDatabasePort;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
+@Component
 public class AssociateProductWithCategoryImpl implements AssociateProductWithCategoryUseCase {
 
     private final ProductDatabasePort productDatabasePort;

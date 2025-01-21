@@ -2,6 +2,8 @@ package com.agmgomes.productcatalogmanagement.application.product;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import com.agmgomes.productcatalogmanagement.application.product.usecases.AssociateProductWithCategoryUseCase;
 import com.agmgomes.productcatalogmanagement.application.product.usecases.DeleteProductUseCase;
 import com.agmgomes.productcatalogmanagement.application.product.usecases.GetAllProductsUseCase;
@@ -14,6 +16,7 @@ import com.agmgomes.productcatalogmanagement.ports.in.ProductServicePort;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
+@Service
 public class ProductService implements ProductServicePort {
 
     private final AssociateProductWithCategoryUseCase associateProductWithCategoryUseCase;

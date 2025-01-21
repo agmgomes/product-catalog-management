@@ -1,5 +1,7 @@
 package com.agmgomes.productcatalogmanagement.application.product.impl;
 
+import org.springframework.stereotype.Component;
+
 import com.agmgomes.productcatalogmanagement.application.product.usecases.UpdateProductUseCase;
 import com.agmgomes.productcatalogmanagement.domain.product.Product;
 import com.agmgomes.productcatalogmanagement.domain.product.exception.ProductNotFoundException;
@@ -8,6 +10,7 @@ import com.agmgomes.productcatalogmanagement.ports.out.ProductDatabasePort;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
+@Component
 public class UpdateProductImpl implements UpdateProductUseCase {
 
     private final ProductDatabasePort productDatabasePort;
