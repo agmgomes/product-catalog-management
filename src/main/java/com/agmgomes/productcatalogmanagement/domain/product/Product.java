@@ -4,10 +4,12 @@ import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@NoArgsConstructor
 public class Product {
     private String id;
 
@@ -36,6 +38,5 @@ public class Product {
         this.title = title;
         this.description = description;
         this.price = price;
-        this.updatedAt = LocalDateTime.now();
     }
 }
