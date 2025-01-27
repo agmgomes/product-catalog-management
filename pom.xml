@@ -65,6 +65,21 @@
         	<artifactId>mapstruct</artifactId>
         	<version>${org.mapstruct.version}</version>
     	</dependency>
+		<dependency>
+    		<groupId>software.amazon.awssdk</groupId>
+    		<artifactId>sns</artifactId>
+    		<version>2.30.3</version>
+		</dependency>
+		<dependency>
+    		<groupId>software.amazon.awssdk</groupId>
+    		<artifactId>s3</artifactId>
+    		<version>2.30.3</version>
+		</dependency>
+		<dependency>
+    		<groupId>software.amazon.awssdk</groupId>
+    		<artifactId>sqs</artifactId>
+    		<version>2.30.3</version>
+		</dependency>
 	</dependencies>
 
 	<build>
