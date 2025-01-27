@@ -9,5 +9,7 @@ public interface CategoryDatabasePort {
     Category save(Category category);
     Optional<Category> findById(String categoryId);
     List<Category> findAll();
+    List<Category> findAllByOwnerId(Long ownerId);
+    List<Long> getAllOwnerIds();
     void delete(String categoryId);
 }

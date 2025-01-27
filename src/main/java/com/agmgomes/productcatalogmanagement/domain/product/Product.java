@@ -3,12 +3,14 @@ package com.agmgomes.productcatalogmanagement.domain.product;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
 @Setter
+@AllArgsConstructor
 @NoArgsConstructor
 public class Product {
     private String id;
@@ -22,17 +24,6 @@ public class Product {
 
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
-
-    public Product(Long ownerId, String categoryId, String title, String description, BigDecimal price) {
-        this.id = null;
-        this.ownerId = ownerId;
-        this.categoryId = categoryId;
-        this.title = title;
-        this.description = description;
-        this.price = price;
-        this.createdAt = LocalDateTime.now();
-        this.updatedAt = LocalDateTime.now();
-    }
 
     public void update(String title, String description, BigDecimal price) {
         this.title = title;

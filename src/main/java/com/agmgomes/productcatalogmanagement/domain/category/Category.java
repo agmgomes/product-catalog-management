@@ -19,14 +19,6 @@ public class Category {
     private LocalDateTime createdAt;
     private LocalDateTime updatedAt;
     
-    public Category(Long ownerId, String title, String description) {
-        this.id = null;
-        this.title = title;
-        this.description = description;
-        this.createdAt = LocalDateTime.now();
-        this.updatedAt = LocalDateTime.now();
-    }
-
     public void update(String title, String description) {
         this.title = title;
         this.description = description;

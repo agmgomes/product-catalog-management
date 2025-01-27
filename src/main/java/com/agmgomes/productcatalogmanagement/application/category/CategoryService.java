@@ -5,7 +5,9 @@ import java.util.List;
 import org.springframework.stereotype.Service;
 
 import com.agmgomes.productcatalogmanagement.application.category.usecases.DeleteCategoryUseCase;
+import com.agmgomes.productcatalogmanagement.application.category.usecases.GetAllCategoriesByOwnerIdUseCase;
 import com.agmgomes.productcatalogmanagement.application.category.usecases.GetAllCategoriesUseCase;
+import com.agmgomes.productcatalogmanagement.application.category.usecases.GetAllOwnerIdsUseCase;
 import com.agmgomes.productcatalogmanagement.application.category.usecases.GetCategoryByIdUseCase;
 import com.agmgomes.productcatalogmanagement.application.category.usecases.RegisterCategoryUseCase;
 import com.agmgomes.productcatalogmanagement.application.category.usecases.UpdateCategoryUseCase;
@@ -21,8 +23,10 @@ public class CategoryService implements CategoryServicePort {
     private final RegisterCategoryUseCase registerCategoryUseCase;
     private final GetCategoryByIdUseCase getCategoryByIdUseCase;
     private final GetAllCategoriesUseCase getAllCategoriesUseCase;
+    private final GetAllCategoriesByOwnerIdUseCase getAllCategoriesByOwnerIdUseCase;
     private final DeleteCategoryUseCase deleteCategoryUseCase;
     private final UpdateCategoryUseCase updateCategoryUseCase;
+    private final GetAllOwnerIdsUseCase getAllOwnerIdsUseCase;
 
     @Override
     public Category createCategory(Category categoryData) {
@@ -40,6 +44,11 @@ public class CategoryService implements CategoryServicePort {
     }
 
     @Override
+    public List<Category> getAllOwnerCategories(Long ownerId) {
+        return this.getAllCategoriesByOwnerIdUseCase.execute(ownerId);
+    }
+
+    @Override
     public void deleteCategory(String categoryId) {
         this.deleteCategoryUseCase.execute(categoryId);
     }
@@ -49,4 +58,9 @@ public class CategoryService implements CategoryServicePort {
         return this.updateCategoryUseCase.execute(categoryId, categoryData);
     }
 
+    @Override
+    public List<Long> getAllOwnerIds() {
+        return this.getAllOwnerIdsUseCase.execute();
+    }
+    
 }

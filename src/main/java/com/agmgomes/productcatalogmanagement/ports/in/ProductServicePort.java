@@ -8,6 +8,7 @@ public interface ProductServicePort {
     Product createProduct(Product productData);
     Product getProductById(String productId);
     List<Product> getAllProducts();
+    List<Product> getAllOwnerProducts(Long ownerId);
     Product updateProduct(String productId, Product productData);
     void associateProductWithCategory(String productId, String categoryId);
     void deleteProduct(String productId);

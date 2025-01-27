@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 
 import com.agmgomes.productcatalogmanagement.application.product.usecases.AssociateProductWithCategoryUseCase;
 import com.agmgomes.productcatalogmanagement.application.product.usecases.DeleteProductUseCase;
+import com.agmgomes.productcatalogmanagement.application.product.usecases.GetAllProductsByOwnerIdUseCase;
 import com.agmgomes.productcatalogmanagement.application.product.usecases.GetAllProductsUseCase;
 import com.agmgomes.productcatalogmanagement.application.product.usecases.GetProductByIdUseCase;
 import com.agmgomes.productcatalogmanagement.application.product.usecases.RegisterProductUseCase;
@@ -23,6 +24,7 @@ public class ProductService implements ProductServicePort {
     private final RegisterProductUseCase registerProductUseCase;
     private final DeleteProductUseCase deleteProductUseCase;
     private final GetAllProductsUseCase getAllProductsUseCase;
+    private final GetAllProductsByOwnerIdUseCase getAllProductsByOwnerIdUseCase;
     private final GetProductByIdUseCase getProductByIdUseCase;
     private final UpdateProductUseCase updateProductUseCase;
 
@@ -45,6 +47,12 @@ public class ProductService implements ProductServicePort {
     @Override
     public List<Product> getAllProducts() {
         return this.getAllProductsUseCase.execute();
+    }
+    
+
+    @Override
+    public List<Product> getAllOwnerProducts(Long ownerId) {
+        return this.getAllProductsByOwnerIdUseCase.execute(ownerId);
     }
 
     @Override
