@@ -2,11 +2,14 @@ package com.agmgomes.productcatalogmanagement.infrastructure.adapters.in.rest.dt
 
 import java.math.BigDecimal;
 
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 public record ProductRequestDto(
-        Long ownerId,
-        String categoryId,
-        String title,
-        String description,
-        BigDecimal price) {
+                @NotNull Long ownerId,
+                @NotBlank String categoryId,
+                @NotBlank String title,
+                @NotBlank String description,
+                @NotNull BigDecimal price) {
 
 }

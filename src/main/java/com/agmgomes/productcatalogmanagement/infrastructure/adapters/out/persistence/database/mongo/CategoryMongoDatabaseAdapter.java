@@ -36,6 +36,15 @@ public class CategoryMongoDatabaseAdapter implements CategoryDatabasePort {
     }
 
     @Override
+    public List<Category> findAllByOwnerId(Long ownerId) {
+        List<CategoryCollection> allCategories = this.categoryMongoRepository.findByOwnerId(ownerId);
+
+        return allCategories.stream()
+                .map(this.categoryMongoMapper::toDomain)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public Optional<Category> findById(String categoryId) {
         Optional<CategoryCollection> foundCategory = this.categoryMongoRepository.findById(categoryId);
 
@@ -49,6 +58,11 @@ public class CategoryMongoDatabaseAdapter implements CategoryDatabasePort {
         CategoryCollection savedCategory = this.categoryMongoRepository.save(newCategory);
 
         return this.categoryMongoMapper.toDomain(savedCategory);
+    }
+
+    @Override
+    public List<Long> getAllOwnerIds() {
+        return this.categoryMongoRepository.findDistinctOwnerIds();
     }
 
 }

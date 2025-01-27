@@ -1,5 +1,6 @@
 package com.agmgomes.productcatalogmanagement.infrastructure.adapters.in.rest.controller;
 
+import java.net.URI;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import com.agmgomes.productcatalogmanagement.domain.category.Category;
 import com.agmgomes.productcatalogmanagement.infrastructure.adapters.in.rest.dto.category.request.CategoryRequestDto;
@@ -19,6 +21,7 @@ import com.agmgomes.productcatalogmanagement.infrastructure.adapters.in.rest.dto
 import com.agmgomes.productcatalogmanagement.infrastructure.adapters.in.rest.mapper.CategoryRestMapper;
 import com.agmgomes.productcatalogmanagement.ports.in.CategoryServicePort;
 
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 
 @RequiredArgsConstructor
@@ -30,11 +33,16 @@ public class CategoryRestController {
     private final CategoryServicePort categoryServicePort;
 
     @PostMapping
-    public ResponseEntity<CategoryResponseDto> createCategory(@RequestBody CategoryRequestDto categoryDto) {
+    public ResponseEntity<CategoryResponseDto> createCategory(@Valid @RequestBody CategoryRequestDto categoryDto) {
 
         Category newCategory = this.categoryServicePort.createCategory(this.categoryRestMapper.toDomain(categoryDto));
+        URI location = ServletUriComponentsBuilder
+                .fromCurrentRequest()
+                .path("/{id}")
+                .buildAndExpand(newCategory.getId())
+                .toUri();
 
-        return ResponseEntity.ok().body(categoryRestMapper.toDto(newCategory));
+        return ResponseEntity.created(location).body(categoryRestMapper.toDto(newCategory));
     }
 
     @GetMapping("/{id}")
@@ -43,6 +51,16 @@ public class CategoryRestController {
         Category foundCategory = this.categoryServicePort.getCategoryById(categoryId);
 
         return ResponseEntity.ok().body(categoryRestMapper.toDto(foundCategory));
+    }
+
+    @GetMapping("/owner/{id}")
+    public ResponseEntity<List<CategoryResponseDto>> getAllOwnerCategories(@PathVariable("id") Long ownerId) {
+        List<Category> categories = this.categoryServicePort.getAllOwnerCategories(ownerId);
+        List<CategoryResponseDto> categoriesDto = categories.stream()
+                .map(this.categoryRestMapper::toDto)
+                .collect(Collectors.toList());
+
+        return ResponseEntity.ok().body(categoriesDto);
     }
 
     @GetMapping
@@ -67,7 +85,7 @@ public class CategoryRestController {
     }
 
     @DeleteMapping("/{id}")
-    public ResponseEntity<?> deleteCategory(@PathVariable("id") String categoryId) {
+    public ResponseEntity<Void> deleteCategory(@PathVariable("id") String categoryId) {
 
         this.categoryServicePort.deleteCategory(categoryId);
 

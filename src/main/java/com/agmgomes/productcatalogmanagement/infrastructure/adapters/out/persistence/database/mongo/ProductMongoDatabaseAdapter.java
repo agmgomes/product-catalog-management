@@ -36,6 +36,15 @@ public class ProductMongoDatabaseAdapter implements ProductDatabasePort {
     }
 
     @Override
+    public List<Product> findAllByOwnerId(Long ownerId) {
+        List<ProductCollection> allProducts = this.productMongoRepository.findByOwnerId(ownerId);
+
+        return allProducts.stream()
+                .map(this.productMongoMapper::toDomain)
+                .collect(Collectors.toList());
+    }
+
+    @Override
     public Optional<Product> findById(String productId) {
         Optional<ProductCollection> foundProduct = this.productMongoRepository.findById(productId);
         return foundProduct.map(this.productMongoMapper::toDomain);
